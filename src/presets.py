@@ -16,4 +16,13 @@ def earth_mars():
         position=np.array([2.0e8, 0.0, 0.0]),
         velocity=np.array([-800.0, 0.0, 0.0]),
     )
+
+    rouge_asteroid = Body(
+        name="Rouge asteroid",
+        mass=2.7e10,
+        radius=162.5,
+        position=np.array([0.0, 6.0e6, 0.0]),
+        velocity=np.array([0, -1.8e4, 0.0]),
+    )
+    
     return [earth, mars]
