@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 import numpy as np
+
 
 @dataclass
 class Body:
@@ -10,5 +12,9 @@ class Body:
     velocity: np.ndarray
     shape: str = "sphere"
 
-    def __repr__(self):
-        return f"Body({self.name!r}, mass={self.mass}, radius={self.radius})"
+    def __repr__(self) -> str:
+        return (
+            f"Body(name={self.name!r}, mass={self.mass!r}, "
+            f"radius={self.radius!r}, position={self.position!r}, "
+            f"velocity={self.velocity!r}, shape={self.shape!r})"
+        )
