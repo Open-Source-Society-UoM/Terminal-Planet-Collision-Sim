@@ -11,6 +11,7 @@ class Body:
     mass: float
     radius: float
     # Mutable kinematic state — callers update these in place each step.
+    acceleration: np.ndarray = field(default_factory=lambda: np.zeros(3))
     position: np.ndarray = field(default_factory=lambda: np.zeros(3))
     velocity: np.ndarray = field(default_factory=lambda: np.zeros(3))
     shape: str = "sphere"
@@ -19,5 +20,6 @@ class Body:
         return (
             f"Body(name={self.name!r}, mass={self.mass!r}, "
             f"radius={self.radius!r}, position={self.position!r}, "
-            f"velocity={self.velocity!r}, shape={self.shape!r})"
+            f"velocity={self.velocity!r}, acceleration={self.acceleration!r}, "
+            f"shape={self.shape!r})"
         )
