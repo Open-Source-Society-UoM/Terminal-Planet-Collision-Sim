@@ -1,0 +1,8 @@
+# Python bytecode cache
+__pycache__
+
+
+
+# (ms1d) I have no idea why this comes up in my repos lol, LSP related?
+.ropeproject
+.cache
