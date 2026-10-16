@@ -16,6 +16,7 @@ class Terminal:
         self.keys = set()
 
     def render(self, frameBuffer, x, y):
+        # 30 fps frame lock
         while (time.time() - self.lastTime) < 1.0/30:
             pass
         
@@ -91,23 +92,24 @@ def main():
     print("\033c", end="")              # Reset terminal attributes
 
 def getTempImageArray(x,y):
-    gifs = [
+    
+
+    if cur_gifs[0] >= cur_gifs[2].n_frames * 2:
+        cur_gifs[0] = 0
+        cur_gifs[1] += 1
+        cur_gifs[2] = Image.open(gifs[cur_gifs[1]%3])
+    cur_gifs[2].seek(cur_gifs[0]%cur_gifs[2].n_frames)
+    cur_gifs[0] += 1
+    
+    
+    current_frame = cur_gifs[2].convert("RGBA").resize((x,y), Image.Resampling.LANCZOS)
+    return current_frame.load()
+
+gifs = [
         "tempGif/MJ-giphy.gif",
         "tempGif/giphy.gif",
         "tempGif/tf2.gif",
     ]
-    im = Image.open(gifs[cur_gifs[1]%3])
-
-    if cur_gifs[0] >= im.n_frames * 2:
-        cur_gifs[0] = 0
-        cur_gifs[1] += 1
-        im = Image.open(gifs[cur_gifs[1]%3])
-    im.seek(cur_gifs[0]%im.n_frames)
-    cur_gifs[0] += 1
-    
-    
-    current_frame = im.convert("RGBA").resize((x,y), Image.Resampling.LANCZOS)
-    return current_frame.load()
-
-cur_gifs = [0,0]
-main()
+cur_gifs = [0,0,Image.open(gifs[0])]
+if __name__ == '__main__':
+    main()
